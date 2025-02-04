@@ -6,26 +6,26 @@
                 <h5 class="modal-title" id="exampleModalLabel">Registrar nuevo usuario</h5>
             </div>
             <div class="modal-body">
-                <form action="<?php echo Route::user("crearUsuario") ?>" method="POST">
+                <form id="formulario">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Nombre:</label>
-                        <input type="text" class="form-control" name="nombre" required>
+                        <input type="text" class="form-control" name="nombre" id="nombre" required>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Correo electronico:</label>
-                        <input type="email" class="form-control" name="correo" required>
+                        <input type="email" class="form-control" name="correo" id="correo" required>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Telefono:</label>
-                        <input type="number" class="form-control" name="telefono" placeholder="El telefono debe tener 10 digitos" required>
+                        <input type="tel" class="form-control" name="telefono" id="telefono" placeholder="El telefono debe tener 10 digitos" required>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Contraseña:</label>
-                        <input type="password" class="form-control" name="password" required>
+                        <input type="password" class="form-control" name="password" id="password" required>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Nivel de usuario:</label>
-                        <select class="form-select" aria-label="Default select example" name="nivel">
+                        <select class="form-select" aria-label="Default select example" name="nivel" id="nivel">
                             <!--<option selected>Seleccona un nivel de usuario</option>-->
                             <option value="Administrador">Administrador</option>
                             <option value="Empleado">Empleado</option>
@@ -37,9 +37,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-success"><i class="fas fa-user-plus"></i> Registrar usuario</button>
+                        <button type="button" class="btn btn-success" id="enviar"><i class="fas fa-user-plus"></i> Registrar usuario</button>
                     </div>
-                    <input type="hidden" name="operador" value="crear">
                 </form>
             </div>
         </div>

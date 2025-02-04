@@ -29,18 +29,18 @@ if ($_SESSION['usuario']['id'] == $usuario->getId()) {
 }
 
 
-if (!$usuario->obtenerUsuarioById()) {
+if (!$usuario->existeUsuarioById()) {
 
     echo json_encode(['status' => 'error', 'message' => 'El usuario no existe']);
     exit;
 }
-
+    
 
 if ($usuario->eliminar()) {
 
     echo json_encode(['status' => 'success', 'message' => 'Usuario eliminado correctamente']);
 } else {
-    
+
     echo json_encode(['status' => 'error', 'message' => 'No se pudo eliminar el usuario']);
 }
 

@@ -37,13 +37,51 @@ function eliminarUsuario(userId) {
     });
 }
 
+$(document).ready(function() {
+    $('#enviar').on('click', function() {
+        var data = {
+            nombre: $('#nombre').val(),
+            telefono: $('#telefono').val(),
+            correo: $('#correo').val(),
+            password: $('#password').val(),
+            nivel: $('#nivel').val()
+        };
 
-// Función para eliminar usuario
+        $.ajax({
+            url: '../../controllers/usuarios/crearUsuario.php',
+            type: 'POST',
+            data: data,
+            dataType: 'json',
+            success: function (response) {
+
+                const mensaje = response.message;
+
+                if (response.status === 'success') {
+                    agregado(mensaje);
+                }
+
+                if (response.status === 'error') {
+                    error(mensaje);
+                }
+            },
+            error: function (xhr, status, error) {
+                error_servidor();
+            }
+
+        })
+    })
+})
+
+/*
+// Función para agregar usuario
 function agregarUsuario() {
+    
+    var parametros = $('#formulario').serialize();
+
     $.ajax({
         url: '../../controllers/usuarios/crearUsuario.php',
         type: 'POST',
-        data: { nombre: nombre, correo: correo, telefono: telefono, nivel: nivel, password: password },
+        data: {parametros},
         dataType: 'json',
         success: function (response) {
 
@@ -60,3 +98,5 @@ function agregarUsuario() {
         }
     });
 }
+*/
+

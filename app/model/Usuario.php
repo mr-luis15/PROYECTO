@@ -80,7 +80,8 @@ class Usuario {
         $query = "SELECT * FROM usuarios WHERE correo = :correo";
 
         $stmt = $this->PDO->prepare($query);
-        $stmt->execute([':correo' => $this->correo]);
+        $stmt->bindParam(':correo', $this->correo);
+        $stmt->execute();
 
         return $stmt->rowCount() > 0 ? true : false;
     }
@@ -91,7 +92,8 @@ class Usuario {
         $query = "SELECT * FROM usuarios WHERE telefono = :telefono";
 
         $stmt = $this->PDO->prepare($query);
-        $stmt->execute([':telefono' => $this->telefono]);
+        $stmt->bindParam(':telefono', $this->telefono);
+        $stmt->execute();
 
         return $stmt->rowCount() > 0 ? true : false;
     }

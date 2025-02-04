@@ -44,6 +44,11 @@ if ($usuario->existeUsuarioById()) {
     exit;
 }
 
+if ($usuario->existeUsuarioByEmail()) {
+
+    echo json_encode(['status' => 'error', 'message' => 'Ya existe un usuario con este correo']);
+    exit;
+}
 
 if (strlen($usuario->telefono) != 10) {
 
