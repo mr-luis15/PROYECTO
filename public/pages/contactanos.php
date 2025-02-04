@@ -3,7 +3,12 @@
 <?php require_once '../layout/head.php'; ?>
 
 <?php require_once '../layout/navbar.php'; ?>
-Contactanos
+<div class="main">
+    <h2>Contactanos</h2>
+
+
+
+</div>
 
 
 

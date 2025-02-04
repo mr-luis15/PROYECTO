@@ -27,7 +27,7 @@ switch ($_SESSION['usuario']['nivel']) {
         break;
 
     default:
-        header('Location: Error.php');
+        Route::msg('Error');
         break;
 }
 

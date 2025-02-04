@@ -3,7 +3,12 @@
 <?php require_once '../layout/head.php'; ?>
 
 <?php require_once '../layout/navbar.php'; ?>
-Mision
+<div class="main">
+    <h2>Mision</h2>
+
+
+
+</div>
 
 
 

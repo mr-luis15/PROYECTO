@@ -19,11 +19,13 @@ require_once '../resources/layout/menu.php';
 $usuario = new Usuario();
 $usuario->setId($_GET['id']);
 
+
 if ($usuario->obtenerUsuarioById() === false) {
 
     echo "Ha habido un error. No se encontró el usuario";
     exit;
 }
+
 
 $resultado = $usuario->obtenerUsuarioById();
 foreach ($resultado as $datos):
@@ -87,7 +89,9 @@ foreach ($resultado as $datos):
     </div>
 <?php
 
+
 endforeach;
 require_once '../resources/layout/footer.php';
+
 
 ?>

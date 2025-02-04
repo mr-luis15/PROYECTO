@@ -25,36 +25,49 @@ $usuario->password = $_POST['password'];
 
 
 if (!$usuario->esNivelValido()) {
+
     echo json_encode(['status' => 'error', 'message' => 'No tienes permiso para realizar esta acción']);
     exit;
 }
 
+
 if (!filter_var($usuario->correo, FILTER_VALIDATE_EMAIL)) {
+
     echo json_encode(['status' => 'error', 'message' => 'El correo no es valido']);
     exit;
 }
 
-if ($usuario->existeUsuario()) {
+
+if ($usuario->existeUsuarioById()) {
+
     echo json_encode(['status' => 'error', 'message' => 'Ya existe este usuario']);
     exit;
 }
 
+
 if (strlen($usuario->telefono) != 10) {
+
     echo json_encode(['status' => 'error', 'message' => 'El telefono debe tener 10 digitos']);
     exit;
 }
 
+
 if ($usuario->existeTelefono()) {
+
     echo json_encode(['status' => 'error', 'message' => 'Este telefono ya esta registrado en otro usuario. Usa otro telefono.']);
     exit;
 }
 
+
 $usuario->passwordHash = password_hash($usuario->password, PASSWORD_BCRYPT);
 
+
 if (!$usuario->crear()) {
+
     echo json_encode(['status' => 'error', 'message' => 'Ha habido un error. El usuario no se ha creado.']);
     exit;
 } else {
+
     echo json_encode(['status' => 'success', 'message' => 'Agregado con exito.']);
     exit;
 }

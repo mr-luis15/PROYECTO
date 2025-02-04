@@ -9,7 +9,7 @@ require_once '../resources/layout/navar.php';
 
 ?>
 
-<div id="contenedor-form" class="d-flex justify-content-center align-items-center vh-100 bg-light">
+<div id="contenedor-form" class="d-flex justify-content-center align-items-center vh-100" style="background-color: #2f74c8;">
     <form action="<?php echo Route::auth('login'); ?>" method="POST" class="bg-white p-4 rounded shadow-lg" style="width: 100%; max-width: 400px;">
         <h1 class="text-center mb-4">Inicio de sesión</h1>
         <div class="mb-3">
@@ -27,10 +27,6 @@ require_once '../resources/layout/navar.php';
         </div>
     </form>
 </div>
-
-
-
-
 
 
 <?php

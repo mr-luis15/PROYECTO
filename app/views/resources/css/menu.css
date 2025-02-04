@@ -11,6 +11,14 @@ body {
     flex-direction: column; /* Asegura que los elementos se apilen en dispositivos más pequeños */
 }
 
+.h2 {
+
+    text-align: center !important;
+    margin-bottom: 5vh !important;
+
+}
+
+/* Estilos base del sidebar */
 .sidebar {
     position: fixed;
     bottom: 0;
@@ -20,7 +28,8 @@ body {
     display: block;
     padding: 0;
     overflow-y: auto;
-    transition: width 0.3s ease; /* Añadido para transición suave cuando se reduce el tamaño */
+    transition: all 0.3s ease; /* Transición suave */
+    z-index: 1000;
 }
 
 .image-container {
@@ -42,6 +51,7 @@ ul {
     padding: 0;
     margin: 0;
     display: block;
+    list-style-type: none;
 }
 
 ul a {
@@ -54,11 +64,17 @@ ul a {
     align-items: center;
     justify-content: flex-start;
     transition: color 0.3s ease;
+    font-size: 1rem;
 }
 
 ul a i {
     margin-right: 15px;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+}
+
+ul a span {
+    display: inline-block; /* Mostrar texto por defecto */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 ul a:hover {
@@ -82,6 +98,52 @@ ul a:hover {
     background-color: #d85050;
 }
 
+/* Media queries para pantallas menores a 1000px */
+@media screen and (max-width: 1000px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: auto;
+        width: 100%; /* Ocupa todo el ancho */
+        height: auto; /* Ajusta la altura automáticamente */
+        display: flex; /* Cambiar diseño a horizontal */
+        justify-content: space-between; /* Espaciado horizontal */
+        overflow-x: auto; /* Habilitar desplazamiento horizontal si es necesario */
+    }
+
+    ul {
+        display: flex; /* Cambiar diseño de la lista a horizontal */
+        width: 100%;
+    }
+
+    ul a {
+        justify-content: center; /* Centrar íconos y texto */
+        height: auto; /* Ajustar altura automáticamente */
+        padding: 10px; /* Ajustar espacio interior */
+        flex: 1; /* Distribuir enlaces equitativamente */
+    }
+
+    ul a i {
+        margin-right: 0; /* Eliminar margen entre ícono y texto */
+    }
+
+    ul a span {
+        display: none; /* Ocultar texto en pantallas pequeñas */
+    }
+
+    .image-container {
+        display: none; /* Ocultar el contenedor de la imagen en pantallas pequeñas */
+    }
+
+    .main {
+        width: 100% !important;
+        height: 95% !important;
+        bottom: 0;
+    }
+}
+
+
+/*
 table{
 	width: 100%;
 	border-collapse: collapse;
@@ -114,7 +176,13 @@ tr:nth-child(even) {
 
 tr:hover{
 	background-color: #ddd;
+} */
+
+.table thead {
+    background-color: #2f74c8 !important;
+    color: white !important;
 }
+
 
 .main {
     width: 90%;
@@ -234,7 +302,7 @@ tr:hover{
 /* Responsive */
 @media (max-width: 768px) {
     .sidebar {
-        width: 20vw; /* Aumentamos el tamaño de la barra lateral en pantallas pequeñas */
+        width: 100%; /* Aumentamos el tamaño de la barra lateral en pantallas pequeñas */
     }
 
     .main {
@@ -263,9 +331,44 @@ tr:hover{
     }
 }
 
+@media (max-width: 680px) {
+    .sidebar {
+        width: 100%; /* Aumentamos aún más el tamaño de la barra lateral en pantallas móviles */
+        height: 10vh;
+    }
+
+    .contenedor-botones #usuarios,
+    .contenedor-botones #servicios,
+    .contenedor-botones #productos,
+    .contenedor-botones #pedidos,
+    .contenedor-botones #categoria,
+    .contenedor-botones #tecnicos,
+    .contenedor-botones #empleados,
+    .contenedor-botones #inventario {
+        width: 80vw; /* Los botones ocuparán más espacio en pantallas muy pequeñas */
+    }
+
+    .image-container {
+        height: 40vh; /* Aumentamos la altura de la imagen en pantallas muy pequeñas */
+    }
+
+    ul a {
+        font-size: 1rem; /* Aumentamos la legibilidad del texto */
+    }
+
+    .contenedor-botones .contenedor-imagen {
+        font-size: 6vh; /* Aumentamos el tamaño de los iconos */
+    }
+
+    .main {
+        height: 90vh;
+        margin-top: 10vh;
+    }
+}
+
 @media (max-width: 480px) {
     .sidebar {
-        width: 30vw; /* Aumentamos aún más el tamaño de la barra lateral en pantallas móviles */
+        width: 100%; /* Aumentamos aún más el tamaño de la barra lateral en pantallas móviles */
     }
 
     .contenedor-botones #usuarios,
@@ -292,6 +395,21 @@ tr:hover{
     }
 }
 
+
+
+.card {
+    padding: 20px; 
+    border: 1px solid #ddd; 
+    border-radius: 0px; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.recuadro-button {
+    background-color: #2f74c8; 
+    color: white; 
+    padding: 10px 20px; 
+    border-radius: 10px 10px 0 0;
+}
 
 
 

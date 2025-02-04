@@ -15,6 +15,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Links de CSS -->
+    <link rel="stylesheet" href="../css/public.css">
 </head>
 
 <body>

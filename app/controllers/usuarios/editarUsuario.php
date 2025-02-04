@@ -13,6 +13,7 @@ if (
     exit;
 }
 
+
 $usuario = new Usuario();
 $usuario->setId($_POST['id']);
 $usuario->nombre = $_POST['nombre'];
@@ -20,14 +21,17 @@ $usuario->correo = $_POST['correo'];
 $usuario->telefono = $_POST['telefono'];
 $usuario->nivel = $_POST['nivel'];
 
+
 if (!filter_var($usuario->correo, FILTER_VALIDATE_EMAIL)) {
     echo "El correo electronico no es valido";
     exit;
 }
 
+
 if (strlen($usuario->telefono) != 10) {
     echo "El telefono debe tener 10 digitos";
 }
+
 
 $resultado = $usuario->obtenerUsuarioById();
 foreach ($resultado as $datos) {
@@ -37,12 +41,14 @@ foreach ($resultado as $datos) {
         exit;
     }
 
+
     if ($usuario->correo != $datos['correo']) {
         if ($usuario->existeUsuario()) {
             echo "Ya existe este usuario";
             exit;
         }
     }
+
 
     if ($usuario->telefono != $datos['telefono']) {
         if ($usuario->existeTelefono()) {
@@ -52,15 +58,18 @@ foreach ($resultado as $datos) {
     }
 }
 
+
 if (!$usuario->esNivelValido()) {
     echo "Este nivel de usuario no es valido";
     exit;
 }
 
+
 if (!$usuario->editar()) {
     echo "Ha habido un error. No se modific+o el usuario";
     exit;
 }
+
 
 switch ($usuario->nivel) {
 

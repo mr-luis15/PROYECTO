@@ -15,7 +15,7 @@ function eliminarUsuario(userId) {
             $.ajax({
                 url: '../../controllers/usuarios/eliminarUsuario.php',
                 type: 'POST',
-                data: { id: userId },
+                data: { id: userId},
                 dataType: 'json',
                 success: function (response) {
 

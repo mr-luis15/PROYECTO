@@ -8,12 +8,13 @@ require_once '../resources/layout/head.php';
 require_once '../resources/layout/navar.php';
 
 ?>
-<div class="container mt-5">
+<div class="d-flex align-items-center justify-content-center" style="height: 100vh; background-color: #2f74c8;">
+    <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow-lg">
                     <div class="card-body">
-                        <h3 class="card-title text-center">Registrarse</h3>
+                        <h3 class="card-title text-center mb-4">Registrarse</h3>
                         <form action="<?php echo Route::user('registrarse'); ?>" method="POST">
                             <div class="form-group mb-3">
                                 <label for="nombre">Nombre</label>
@@ -27,20 +28,18 @@ require_once '../resources/layout/navar.php';
                                 <label for="correo">Correo Electrónico</label>
                                 <input type="email" class="form-control" id="correo" name="correo" placeholder="Ingresa tu correo electrónico" required>
                             </div>
-                            
                             <div class="form-group mb-3">
                                 <label for="contraseña">Contraseña</label>
                                 <input type="password" class="form-control" id="password" name="password" placeholder="Ingresa tu contraseña" required>
                             </div>
                             <div class="text-center d-grid gap-2">
                                 <button type="submit" class="btn btn-success">Registrarse</button>
-                                <button type="button" class="btn btn-outline-secondary mt-2" onclick="document.location.href='<?php echo Route::url('login') ?>'">Iniciar sesion</button>
-                            
+                                <button type="button" class="btn btn-outline-secondary mt-2" onclick="document.location.href='<?php echo Route::url('login') ?>'">Iniciar sesión</button>
                             </div>
                         </form>
-                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>

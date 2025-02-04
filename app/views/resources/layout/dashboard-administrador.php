@@ -1,6 +1,7 @@
 <div class="main">
     <h1>Dashboard</h1>
     <h4>Bienvenid@ <?php echo $_SESSION['usuario']['nombre']; ?></h5>
+        <hr>
         <div class="contenedor-botones">
             <a id="usuarios" href="<?php echo Route::url('clientes'); ?>">
                 <div class=" contenedor-imagen">
