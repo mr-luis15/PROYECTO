@@ -12,7 +12,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <script src="../resources/js/functions.js"></script>
+    <script src="../resources/js/Funciones.js"></script>
     <!-- Links de funciones de Javascript -->
     <!--<script src="../js/funciones.js"></script>-->
 

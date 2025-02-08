@@ -1,17 +1,19 @@
 <?php
 
-require_once '../../model/Usuario.php';
-require_once '../../routes/RouteController.php';
 
-//print_r($_POST);
+
+require_once '../../model/Usuario.php';
+
+
 
 if (
-    empty($_POST['nombre']) && empty($_POST['telefono']) &&
-    empty($_POST['correo']) && empty($_POST['password'])
+    empty($_POST['nombre']) || empty($_POST['telefono']) ||
+    empty($_POST['correo']) || empty($_POST['password'])
 ) {
-    echo "No se han recibido algunos datos";
+    echo json_encode(['status' => 'error', 'message' => 'No se han recibido los datos']);
     exit;
 }
+
 
 $usuario = new Usuario();
 $usuario->nombre = $_POST['nombre'];
@@ -20,30 +22,41 @@ $usuario->telefono = $_POST['telefono'];
 $usuario->nivel = 'Cliente';
 $usuario->password = $_POST['password'];
 
+
 if (!filter_var($usuario->correo, FILTER_VALIDATE_EMAIL)) {
-    echo "El correo electronico no es valido";
+    echo json_encode(['status' => 'error', 'message' => 'El correo electronico no es valido']);
     exit;
 }
 
-if ($usuario->existeUsuario()) {
-    echo "Ya existe este usuario";
+
+if ($usuario->existeUsuarioByEmail()) {
+    echo json_encode(['status' => 'error', 'message' => 'Este correo electronico ya está en uso']);
     exit;
 }
 
-if (!strlen($usuario->telefono) != 10) {
-    echo "El telefono debe tener 10 digitos";
+
+if (strlen($usuario->telefono) != 10) {
+    echo json_encode(['status' => 'error', 'message' => 'El telefono debe tener 10 digitos']);
+    exit;
 }
+
 
 if ($usuario->existeTelefono()) {
-    echo "Este telefono ya esta registrado";
+    echo json_encode(['status' => 'error', 'message' => 'Este telefono ya esta en uso']);
     exit;
 }
+
 
 $usuario->passwordHash = password_hash($usuario->password, PASSWORD_BCRYPT);
 
+
 if (!$usuario->crear()) {
-    echo "No se ha creado";
+    echo json_encode(['status' => 'error', 'message' => 'Ha habido un erro al momento de crear el usuario']);
     exit;
 }
 
-Route::view('login');
+
+echo json_encode(['status' => 'success', 'message' => 'Te has registrado con exito']);
+
+
+?>

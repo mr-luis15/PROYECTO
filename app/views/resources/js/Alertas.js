@@ -51,6 +51,18 @@ function error_servidor() {
     Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Hubo un error con el servidor'
+        text: 'Hubo un error al enviar los datos. No se enviaron los datos'
+    });
+}
+
+function registrado(mensaje) {
+    Swal.fire({
+        title: "Registrado",
+        text: mensaje,
+        icon: "success",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "login.php";
+        }
     });
 }

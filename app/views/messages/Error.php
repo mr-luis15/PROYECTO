@@ -1,14 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-    no tienes permiso
+<?php
 
+require_once '../resources/layout/head.php';
 
-</body>
-</html>
+?>
+
+    <div class="text-center">
+        <!-- Mensaje de acceso denegado -->
+        <h1 class="text-danger">¡Acceso Denegado!</h1>
+        <p class="lead">Lo siento, no tienes permiso para acceder a esta página.</p>
+        <!-- Botón para redirigir o cerrar -->
+        <a href="../../controllers/autenticar/logout.php" class="btn btn-danger">Volver</a>
+    </div>
+
+<?php 
+
+require_once '../resources/layout/footer.php';
+
+?>

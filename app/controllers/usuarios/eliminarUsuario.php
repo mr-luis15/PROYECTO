@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+
 require_once '../../model/Usuario.php';
 
 
@@ -34,7 +35,7 @@ if (!$usuario->existeUsuarioById()) {
     echo json_encode(['status' => 'error', 'message' => 'El usuario no existe']);
     exit;
 }
-    
+
 
 if ($usuario->eliminar()) {
 
@@ -43,5 +44,3 @@ if ($usuario->eliminar()) {
 
     echo json_encode(['status' => 'error', 'message' => 'No se pudo eliminar el usuario']);
 }
-
-?>

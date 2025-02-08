@@ -2,8 +2,21 @@
 
 session_start();
 
-$title = "Dashboard | Vista Principal";
 require_once '../../routes/RouteController.php';
+
+if (
+    !isset($_SESSION['usuario']) ||
+
+    $_SESSION['usuario']['nivel'] != 'Administrador' && $_SESSION['usuario']['nivel'] != 'Secretaria de Ventas' &&
+    $_SESSION['usuario']['nivel'] != 'Secretaria de Compras' && $_SESSION['usuario']['nivel'] != 'Tecnico'
+) {
+
+    Route::msg('Error');
+    exit;
+}
+
+
+$title = "Dashboard | Vista Principal";
 require_once '../resources/layout/head.php';
 require_once '../resources/layout/menu.php';
 
