@@ -2,13 +2,14 @@
 
 session_start();
 
-if ($_SESSION['usuario']['nivel'] != 'Administrador') {
-    header('Location: login.php');
+require_once '../../routes/RouteController.php';
+
+if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['nivel'] != 'Administrador') {
+    Route::msg('Error');
     exit;
 }
 
 $title = "Empleados";
-require_once '../../routes/RouteController.php';
 require_once '../resources/layout/head.php';
 require_once '../resources/layout/menu.php';
 require_once '../../model/Usuario.php';

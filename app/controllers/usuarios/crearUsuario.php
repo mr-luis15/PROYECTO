@@ -1,15 +1,21 @@
 <?php
+session_start();
+
 
 require_once '../../model/Usuario.php';
-//require_once '../../routes/RouteController.php';
+
+
+if ($_SESSION['usuario']['nivel'] != 'Administrador') {
+    echo json_encode(['status' => 'error', 'message' => 'No tienes permitido hacer esta accion']);
+}
+
 
 if (
-    !empty($_POST['id']) &&
-    !empty($_POST['nombre']) &&
-    !empty($_POST['telefono']) &&
-    !empty($_POST['correo']) &&
-    !empty($_POST['password']) &&
-    !empty($_POST['nivel']) 
+    empty($_POST['nombre']) ||
+    empty($_POST['telefono']) ||
+    empty($_POST['correo']) ||
+    empty($_POST['password']) ||
+    empty($_POST['nivel']) 
 ) {
     echo json_encode(['status' => 'error', 'message' => 'No se han recibido los datos']);
     exit;

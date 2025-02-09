@@ -14,6 +14,11 @@ class Route {
     }
 
 
+    public static function service($file) {
+        return "../../controllers/servicios/" . $file . ".php";
+    }
+
+
     //Ruta para ir a autenticar usuairio
     public static function auth($file) {
         return "../../controllers/autenticar/" . $file . ".php";
@@ -46,6 +51,7 @@ class Route {
 
     //Ruta para enviar al usuario a los mensajes
     public static function msg($msg) {
-        return "../messages/" . $msg . "php";
+        header("Location: ../messages/" . $msg . ".php");
+
     }
 }

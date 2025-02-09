@@ -1,8 +1,22 @@
 <?php
 
 session_start();
+
+
 require_once '../../model/Usuario.php';
 require_once '../../routes/RouteController.php';
+
+
+if (
+    !isset($_SESSION['usuario']) ||
+
+    $_SESSION['usuario']['nivel'] != 'Administrador'
+) {
+
+    echo "No tienes permitido realizar esta acccion";
+    exit;
+}
+
 
 if (
     !isset($_POST['id']) && !isset($_POST['nombre']) &&
@@ -43,7 +57,7 @@ foreach ($resultado as $datos) {
 
 
     if ($usuario->correo != $datos['correo']) {
-        if ($usuario->existeUsuario()) {
+        if ($usuario->existeUsuarioByEmail()) {
             echo "Ya existe este usuario";
             exit;
         }
