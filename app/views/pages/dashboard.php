@@ -1,5 +1,7 @@
 <?php
 
+//CAMBIO HECHO DESDE LA PARTICION EN LINUX
+
 session_start();
 
 require_once '../../routes/RouteController.php';
