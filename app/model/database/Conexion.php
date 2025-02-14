@@ -3,19 +3,19 @@
 class Conexion
 {
 
-    
+    /*
     private $HOST = "mysql-climapolardll.alwaysdata.net";
     private $USER = "382391";
     private $PASSWORD = "climapolar_12345";
     private $DBNAME = "climapolardll_nva";
-    
-
-    /*
-    private $HOST = "localhost";
-    private $USER = "root";
-    private $PASSWORD = "";
-    private $DBNAME = "nueva";
     */
+
+    
+    private $HOST = "localhost";
+    private $USER = "admin";
+    private $PASSWORD = "12345";
+    private $DBNAME = "nueva";
+
 
     public function conexion() {
 
@@ -26,7 +26,7 @@ class Conexion
 
         } catch(PDOException $e) {
 
-            echo "No se pudo";
+            echo "alert('No se pudo conectar');";
             return $e->getMessage();
 
         }

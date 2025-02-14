@@ -55,8 +55,8 @@ require_once '../../helpers/helpers.php';
                         <th>Id</th>
                         <th>Cliente</th>
                         <th>Tecnico</th>
-                        <th>Descripcion del Servicio</th>
                         <th>Direccion</th>
+                        <th>Descripcion del Servicio</th>
                         <th>Estado</th>
                         <th>Fecha</th>
                         <th>Acciones</th>
@@ -70,13 +70,15 @@ require_once '../../helpers/helpers.php';
 
                         if ($listado) {
                             foreach ($listado as $servicio) {
-                        ?>
+
+                                ?>
+                                
                                 <tr>
                                     <td><?php echo $servicio['id_servicio']; ?></td>
 
-                                    <td><?php echo $servicio['id_cliente']; ?></td>
+                                    <td><?php echo $servicio['nombre_cliente']; ?></td>
 
-                                    <td><?php echo isNull($servicio['id_tecnico'], "No Asignado"); ?></td>
+                                    <td><?php echo isNull($servicio['nombre_tecnico'], "<p style='color: red'>No Asignado</p>"); ?></td>
 
                                     <td><?php echo $servicio['direccion']; ?></td>
 
@@ -87,11 +89,11 @@ require_once '../../helpers/helpers.php';
                                     <td><?php echo $servicio['fecha_servicio']; ?></td>
 
                                     <td>
-                                        <!--<a class="btn btn-success" onclick="setRealizado(<?php //echo $servicio['id_servicio'] ?>)" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Marcar servicio como realizado">
+                                        <a class="btn btn-dark" onclick="setNoRealizado(<?php echo $servicio['id_servicio'] ?>)" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Marcar servicio como realizado">
                                             <i class="far fa-bookmark"></i>
-                                        </a>-->
+                                        </a>
 
-                                        <a href="<?php echo Route::url('editarUsuario') . '?id=' . $usuario['id_usuario'] ?>" class="btn btn-warning">
+                                        <a href="<?php echo Route::url('editarServicio') . '?id=' . $servicio['id_servicio'] ?>" class="btn btn-warning">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
 
@@ -100,7 +102,9 @@ require_once '../../helpers/helpers.php';
                                         </a>
                                     </td>
                                 </tr>
-                        <?php
+
+                                <?php
+
                             }
                         } else {
                             echo "<tr><td colspan='6' class='text-center'>No hay datos disponibles</td></tr>";

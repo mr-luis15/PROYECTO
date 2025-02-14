@@ -6,6 +6,9 @@ $title = "Registrarse";
 require_once '../../routes/RouteController.php';
 require_once '../resources/layout/head.php';
 require_once '../resources/layout/navar.php';
+require_once '../../helpers/helpers.php';
+
+$codigos = obtenerCodigosPaises();
 
 ?>
 <div class="d-flex align-items-center justify-content-center" style="height: 100vh; background-color: #2f74c8;">
@@ -20,6 +23,23 @@ require_once '../resources/layout/navar.php';
                                 <label for="nombre">Nombre</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
                             </div>
+
+                            <div class="form-group mb-3">
+                                <label for="recipient-name" class="col-form-label">Codigo de telefono:</label>
+                                <select class="form-select" aria-label="Default select example" name="codigo" id="codigo">
+
+                                    <?php
+
+                                    foreach ($codigos as $pais => $cod) {
+
+                                        echo "<option value=" . $cod . "> " . $pais . ": " . $cod . " </option>";
+                                    }
+
+                                    ?>
+
+                                </select>
+                            </div>
+
                             <div class="form-group mb-3">
                                 <label for="telefono">Teléfono</label>
                                 <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Ingresa tu teléfono" required>

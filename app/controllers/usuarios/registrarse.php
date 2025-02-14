@@ -3,12 +3,14 @@
 
 
 require_once '../../model/Usuario.php';
+require_once '../../helpers/helpers.php';
 
 
 
 if (
     empty($_POST['nombre']) || empty($_POST['telefono']) ||
-    empty($_POST['correo']) || empty($_POST['password'])
+    empty($_POST['correo']) || empty($_POST['password']) ||
+    empty($_POST['codigo'])
 ) {
     echo json_encode(['status' => 'error', 'message' => 'No se han recibido los datos']);
     exit;
@@ -16,11 +18,13 @@ if (
 
 
 $usuario = new Usuario();
+
 $usuario->nombre = $_POST['nombre'];
 $usuario->correo = $_POST['correo'];
 $usuario->telefono = $_POST['telefono'];
 $usuario->nivel = 'Cliente';
 $usuario->password = $_POST['password'];
+$usuario->codigo = $_POST['codigo'];
 
 
 if (!filter_var($usuario->correo, FILTER_VALIDATE_EMAIL)) {
@@ -37,6 +41,12 @@ if ($usuario->existeUsuarioByEmail()) {
 
 if (strlen($usuario->telefono) != 10) {
     echo json_encode(['status' => 'error', 'message' => 'El telefono debe tener 10 digitos']);
+    exit;
+}
+
+
+if (!esTelefonoValido($usuario->telefono)) {
+    echo json_encode(['status' => 'error', 'message' => 'Ests telefono no es valido. Debe contener solo numeros']);
     exit;
 }
 

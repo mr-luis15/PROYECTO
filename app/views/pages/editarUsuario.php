@@ -51,17 +51,39 @@ foreach ($resultado as $datos):
                                 <label for="correo" class="form-label">Correo Electrónico</label>
                                 <input type="email" value="<?php echo $datos['correo'] ?>" class="form-control" id="correo" name="correo" required>
                             </div>
+
+                            <?php
+
+                            //Impedimos cambiar el nivel de usuario de los tecnicos para evitar problemas con el modulo servicios
+
+                            if ($datos['nivel'] != 'Tecnico'):
+
+                            ?>
+
                             <div class="mb-3">
                                 <label for="nivel" class="form-label">Nivel de usuario</label>
                                 <select class="form-select" name="nivel">
                                     <option value="Administrador">Administrador</option>
-                                    <option value="Empleado">Empleado</option>
                                     <option value="Tecnico">Técnico</option>
                                     <option value="Secretaria de Compras">Secretaria de Compras</option>
                                     <option value="Secretaria de Ventas">Secretaria de Ventas</option>
                                     <option value="Cliente">Cliente</option>
                                 </select>
                             </div>
+
+                            <?php
+
+                            endif;
+
+                            if ($datos['nivel'] == 'Tecnico'):
+                            
+                            ?>
+
+                                <input type="hidden" name="nivel" id="nivel" value="Tecnico">                                
+
+                            <?php
+                            endif;
+                            ?>
                             <input type="hidden" name="id" value="<?php echo $datos['id_usuario']; ?>">
                             <div class="text-center d-grid gap-2">
                                 <button type="submit" class="btn btn-success">Modificar Usuario</button>

@@ -21,6 +21,12 @@ class Servicios
         $this->PDO = $conn->conexion();
     }
 
+
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
     public function setId($id)
     {
         $this->id = $id;
@@ -77,7 +83,7 @@ class Servicios
 
     public function obtenerServiciosNoRealizados()
     {
-        $query = "SELECT * FROM servicios WHERE estado = 'No realizado'";
+        $query = "SELECT s.id_servicio, s.direccion, s.descripcion, s.estado, s.fecha_servicio, u1.nombre AS nombre_cliente, u2.nombre AS nombre_tecnico FROM servicios s JOIN usuarios u1 ON s.id_cliente = u1.id_usuario LEFT JOIN usuarios u2 ON s.id_tecnico = u2.id_usuario WHERE s.estado = 'No realizado'";
 
         $stmt = $this->PDO->prepare($query);
         $stmt->execute();
@@ -88,7 +94,8 @@ class Servicios
 
     public function obtenerServiciosRealizados()
     {
-        $query = "SELECT * FROM servicios WHERE estado = 'Realizado'";
+        $query = "SELECT s.id_servicio, s.direccion, s.descripcion, s.estado, s.fecha_servicio, u1.nombre AS nombre_cliente, u2.nombre AS nombre_tecnico FROM servicios s JOIN usuarios u1 ON s.id_cliente = u1.id_usuario LEFT JOIN usuarios u2 ON s.id_tecnico = u2.id_usuario WHERE s.estado = 'Realizado'";
+
 
         $stmt = $this->PDO->prepare($query);
         $stmt->execute();
@@ -98,18 +105,21 @@ class Servicios
 
 
 
-    public function setRealizado() {
-        
-        $query = "UPDATE servicios SET estado = 'Realizado' WHERE id_servicio = :id";
+    public function cambiarEstadoServicio($estado)
+    {
+
+        $query = "UPDATE servicios SET estado = :estado WHERE id_servicio = :id";
 
         $stmt = $this->PDO->prepare($query);
         $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':estado', $estado);
 
         return $stmt->execute() ? true : false;
     }
 
-    public function eliminar() {
-        
+    public function eliminar()
+    {
+
         $query = "DELETE FROM servicios WHERE id_servicio = :id";
 
         $stmt = $this->PDO->prepare($query);

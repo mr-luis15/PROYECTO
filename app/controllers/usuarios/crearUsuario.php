@@ -3,7 +3,7 @@ session_start();
 
 
 require_once '../../model/Usuario.php';
-
+require_once '../../helpers/helpers.php';
 
 if ($_SESSION['usuario']['nivel'] != 'Administrador') {
     echo json_encode(['status' => 'error', 'message' => 'No tienes permitido hacer esta accion']);
@@ -15,7 +15,7 @@ if (
     empty($_POST['telefono']) ||
     empty($_POST['correo']) ||
     empty($_POST['password']) ||
-    empty($_POST['nivel']) 
+    empty($_POST['nivel'])
 ) {
     echo json_encode(['status' => 'error', 'message' => 'No se han recibido los datos']);
     exit;
@@ -25,6 +25,7 @@ if (
 $usuario = new Usuario();
 $usuario->nombre = $_POST['nombre'];
 $usuario->correo = $_POST['correo'];
+$usuario->codigo = $_POST['codigo'];
 $usuario->telefono = $_POST['telefono'];
 $usuario->nivel = $_POST['nivel'];
 $usuario->password = $_POST['password'];
@@ -59,6 +60,12 @@ if ($usuario->existeUsuarioByEmail()) {
 if (strlen($usuario->telefono) != 10) {
 
     echo json_encode(['status' => 'error', 'message' => 'El telefono debe tener 10 digitos']);
+    exit;
+}
+
+if (!esTelefonoValido($usuario->telefono)) {
+
+    echo json_encode(['status' => 'error', 'message' => 'El telefono no es valido. Debe contener numeros']);
     exit;
 }
 

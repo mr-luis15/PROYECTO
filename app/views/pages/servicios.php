@@ -32,7 +32,7 @@
     ?>
 
     <div class="main">
-        <h2 class="h2">Lista de Servicios por Realizar</h2>
+        <h2 class="h2">Lista de servicios pendientes</h2>
         <hr>
         <div class="card">
             <!-- Recuadro superior con el botón -->
@@ -55,8 +55,8 @@
                             <th>Id</th>
                             <th>Cliente</th>
                             <th>Tecnico</th>
-                            <th>Descripcion del Servicio</th>
                             <th>Direccion</th>
+                            <th>Descripcion del Servicio</th>
                             <th>Estado</th>
                             <th>Fecha</th>
                             <th>Acciones</th>
@@ -70,13 +70,15 @@
 
                             if ($listado) {
                                 foreach ($listado as $servicio) {
-                            ?>
+
+                                    ?>
+                                    
                                     <tr>
                                         <td><?php echo $servicio['id_servicio']; ?></td>
 
-                                        <td><?php echo $servicio['id_cliente']; ?></td>
+                                        <td><?php echo $servicio['nombre_cliente']; ?></td>
 
-                                        <td><?php echo isNull($servicio['id_tecnico'], "No Asignado"); ?></td>
+                                        <td><?php echo isNull($servicio['nombre_tecnico'], "<p style='color: red'>No Asignado</p>"); ?></td>
 
                                         <td><?php echo $servicio['direccion']; ?></td>
 
@@ -91,7 +93,7 @@
                                                 <i class="far fa-bookmark"></i>
                                             </a>
 
-                                            <a href="<?php echo Route::url('editarUsuario') . '?id=' . $usuario['id_usuario'] ?>" class="btn btn-warning">
+                                            <a href="<?php echo Route::url('editarServicio') . '?id=' . $servicio['id_servicio'] ?>" class="btn btn-warning">
                                                 <i class="fas fa-pencil-alt"></i>
                                             </a>
 
@@ -100,7 +102,9 @@
                                             </a>
                                         </td>
                                     </tr>
-                            <?php
+
+                                    <?php
+
                                 }
                             } else {
                                 echo "<tr><td colspan='6' class='text-center'>No hay datos disponibles</td></tr>";

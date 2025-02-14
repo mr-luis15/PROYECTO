@@ -7,6 +7,7 @@ require_once '../../routes/RouteController.php';
 require_once '../resources/layout/head.php';
 require_once '../resources/layout/menu.php';
 require_once '../../model/Usuario.php';
+require_once '../../helpers/helpers.php';
 
 ?>
 <div class="main">
@@ -32,6 +33,7 @@ require_once '../../model/Usuario.php';
                         <th>Id</th>
                         <th>Nombre</th>
                         <th>Correo</th>
+                        <th>Codigo telefono</th>
                         <th>Teléfono</th>
                         <th>Nivel</th>
                         <th>Borrar | Editar</th>
@@ -49,6 +51,7 @@ require_once '../../model/Usuario.php';
                                 <td><?php echo $usuario['id_usuario']; ?></td>
                                 <td><?php echo $usuario['nombre']; ?></td>
                                 <td><?php echo $usuario['correo']; ?></td>
+                                <td><?php echo $usuario['codigo_telefono']; ?></td>
                                 <td><?php echo $usuario['telefono']; ?></td>
                                 <td><?php echo $usuario['nivel']; ?></td>
                                 <td>

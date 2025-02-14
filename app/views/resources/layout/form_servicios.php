@@ -49,7 +49,7 @@ $tecnicos = $usuario->obtenerTecnicos();
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Descripcion del servicio:</label>
-                        <textarea name="descripcion" class="form-control" id="descripcion"></textarea>
+                        <textarea name="descripcion" class="form-control" id="descripcion" placeholder="Maximo 255 caracteres"></textarea>
                     </div>
 
                     <div class="form-group">

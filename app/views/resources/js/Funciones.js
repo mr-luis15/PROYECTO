@@ -37,6 +37,8 @@ function eliminarUsuario(userId) {
     });
 }
 
+
+
 $(document).ready(function () {
     $('#enviar').on('click', function () {
         var data = {
@@ -44,7 +46,8 @@ $(document).ready(function () {
             telefono: $('#telefono').val(),
             correo: $('#correo').val(),
             password: $('#password').val(),
-            nivel: $('#nivel').val()
+            nivel: $('#nivel').val(),
+            codigo: $('#codigo').val()
         };
 
         $.ajax({
@@ -70,7 +73,8 @@ $(document).ready(function () {
 
         })
     })
-})
+}) 
+
 
 
 $(document).ready(function () {
@@ -80,6 +84,7 @@ $(document).ready(function () {
             telefono: $('#telefono').val(),
             correo: $('#correo').val(),
             password: $('#password').val(),
+            codigo: $('#codigo').val()
         };
 
         $.ajax({
@@ -106,6 +111,7 @@ $(document).ready(function () {
         })
     })
 })
+
 
 
 
@@ -141,6 +147,7 @@ $(document).ready(function () {
         })
     })
 })
+
 
 
 $(document).ready(function () {
@@ -185,8 +192,8 @@ $(document).ready(function () {
 function setRealizado(id_servicio) {
     Swal.fire({
         icon: 'warning',
-        title: '¿Marcar como realizado?',
-        text: 'Esto cambiara el estado del servicio a realizado',
+        title: '¿Marcar como REALIZADO?',
+        text: 'Esto cambiara el estado del servicio a REALIZADO',
         showCancelButton: true,
         confirmButtonColor: "#28a745",
         cancelButtonColor: "#d33",
@@ -196,9 +203,9 @@ function setRealizado(id_servicio) {
         if (result.isConfirmed) {
 
             $.ajax({
-                url: '../../controllers/servicios/setRealizado.php',
+                url: '../../controllers/servicios/cambiarEstadoServicio.php',
                 type: 'POST',
-                data: { id: id_servicio },
+                data: { id: id_servicio, estado: "Realizado" },
                 dataType: 'json',
                 success: function (response) {
 
@@ -220,6 +227,48 @@ function setRealizado(id_servicio) {
         }
     });
 }
+
+
+
+function setNoRealizado(id_servicio) {
+    Swal.fire({
+        icon: 'warning',
+        title: '¿Marcar como NO REALIZADO?',
+        text: 'Esto cambiara el estado del servicio a NO REALIZADO',
+        showCancelButton: true,
+        confirmButtonColor: "#28a745",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Marcar como no realizado",
+        cancelButtonText: "No"
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            $.ajax({
+                url: '../../controllers/servicios/cambiarEstadoServicio.php',
+                type: 'POST',
+                data: { id: id_servicio, estado: "No realizado" },
+                dataType: 'json',
+                success: function (response) {
+
+                    const mensaje = response.message;
+                    const titulo = response.title;
+
+                    if (response.status === 'success') {
+                        ready(mensaje, titulo);
+                    }
+
+                    if (response.status === 'error') {
+                        error(mensaje);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    error_servidor(mensaje);
+                }
+            });
+        }
+    });
+}
+
 
 
 function eliminarServicio(id_servicio) {
