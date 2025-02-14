@@ -66,3 +66,29 @@ function registrado(mensaje) {
         }
     });
 }
+
+function cambiarEstado() {
+    Swal.fire({
+        icon: 'warning',
+        title: '¿Marcar como realizado?',
+        text: 'Esto cambiara el estado del servicio a realizado',
+        showCancelButton: true,
+        confirmButtonColor: "#28a745",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Marcar como realizado",
+        cancelButtonText: "No"
+    });
+}
+
+function ready(mensaje, titulo) {
+    Swal.fire({
+        title: titulo,
+        text: mensaje,
+        icon: "success",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            location.reload();
+        }
+    });
+}
+

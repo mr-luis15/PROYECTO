@@ -15,7 +15,7 @@ if (
     empty($_POST['telefono']) ||
     empty($_POST['correo']) ||
     empty($_POST['password']) ||
-    empty($_POST['nivel']) 
+    empty($_POST['nivel'])
 ) {
     echo json_encode(['status' => 'error', 'message' => 'No se han recibido los datos']);
     exit;
@@ -25,6 +25,7 @@ if (
 $usuario = new Usuario();
 $usuario->nombre = $_POST['nombre'];
 $usuario->correo = $_POST['correo'];
+$usuario->codigo = $_POST['codigo'];
 $usuario->telefono = $_POST['telefono'];
 $usuario->nivel = $_POST['nivel'];
 $usuario->password = $_POST['password'];

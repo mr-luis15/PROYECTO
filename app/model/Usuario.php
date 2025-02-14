@@ -10,6 +10,7 @@ class Usuario {
     public $correo;
     public $nivel;
     public $password;
+    public $codigo;
     public $telefono;
     public $passwordHash;
 
@@ -35,10 +36,11 @@ class Usuario {
     //Metodos CRUD
     public function crear() {
 
-        $query = "INSERT INTO usuarios (nombre, telefono, correo, password, nivel) VALUES (:nombre, :telefono, :correo, :password, :nivel)";
+        $query = "INSERT INTO usuarios (nombre, telefono, correo, codigo_telefono, password, nivel) VALUES (:nombre, :telefono, :correo, :codigo_telefono, :password, :nivel)";
 
         $stmt = $this->PDO->prepare($query);
         $stmt->bindParam(':nombre', $this->nombre);
+        $stmt->bindParam(':codigo_telefono', $this->codigo);
         $stmt->bindParam(':telefono', $this->telefono);
         $stmt->bindParam(':correo', $this->correo);
         $stmt->bindParam(':password', $this->passwordHash);
@@ -139,7 +141,7 @@ class Usuario {
 
     public function obtenerEmpleados() {
 
-        $query = "SELECT id_usuario, nombre, correo, telefono, nivel FROM usuarios WHERE nivel = 'Administrador' OR nivel = 'Empleado' OR nivel='Secretaria de Compras' OR nivel='Secretaria de Ventas'";
+        $query = "SELECT id_usuario, nombre, correo, telefono, nivel, codigo_telefono FROM usuarios WHERE nivel = 'Administrador' OR nivel = 'Empleado' OR nivel='Secretaria de Compras' OR nivel='Secretaria de Ventas'";
 
         $stmt = $this->PDO->prepare($query);
         $stmt->execute();
@@ -150,7 +152,7 @@ class Usuario {
 
     public function obtenerClientes() {
 
-        $query = "SELECT id_usuario, nombre, correo, telefono, nivel FROM usuarios WHERE nivel = 'Cliente'";
+        $query = "SELECT id_usuario, nombre, correo, telefono, nivel, codigo_telefono FROM usuarios WHERE nivel = 'Cliente'";
 
         $stmt = $this->PDO->prepare($query);
         $stmt->execute();
@@ -161,7 +163,7 @@ class Usuario {
 
     public function obtenerTecnicos() {
 
-        $query = "SELECT id_usuario, nombre, correo, telefono, nivel FROM usuarios WHERE nivel = 'Tecnico'";
+        $query = "SELECT id_usuario, nombre, correo, telefono, nivel, codigo_telefono FROM usuarios WHERE nivel = 'Tecnico'";
 
         $stmt = $this->PDO->prepare($query);
         $stmt->execute();

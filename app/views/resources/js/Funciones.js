@@ -37,6 +37,8 @@ function eliminarUsuario(userId) {
     });
 }
 
+
+
 $(document).ready(function () {
     $('#enviar').on('click', function () {
         var data = {
@@ -44,7 +46,8 @@ $(document).ready(function () {
             telefono: $('#telefono').val(),
             correo: $('#correo').val(),
             password: $('#password').val(),
-            nivel: $('#nivel').val()
+            nivel: $('#nivel').val(),
+            codigo: $('#codigo').val()
         };
 
         $.ajax({
@@ -70,7 +73,8 @@ $(document).ready(function () {
 
         })
     })
-})
+}) 
+
 
 
 $(document).ready(function () {
@@ -109,6 +113,7 @@ $(document).ready(function () {
 
 
 
+
 $(document).ready(function () {
     $('#login').on('click', function () {
         var data = {
@@ -142,18 +147,21 @@ $(document).ready(function () {
     })
 })
 
-/*
+
+
 $(document).ready(function () {
-    $('#servicio').on('click', function () {
+    $('#agregar_servicio').on('click', function () {
         var data = {
             cliente: $('#cliente').val(),
             tecnico: $('#tecnico').val(),
+            direccion: $('#direccion').val(),
             descripcion: $('#descripcion').val(),
             fecha: $('#fecha').val(),
+
         };
 
         $.ajax({
-            url: '../../controllers/autenticar/login.php',
+            url: '../../controllers/servicios/crearServicio.php',
             type: 'POST',
             data: data,
             dataType: 'json',
@@ -161,9 +169,8 @@ $(document).ready(function () {
 
                 const mensaje = response.message;
 
-                if (response.status == 'success') {
-                    const nivel = response.nivel;
-                    redirigirPorNivel(nivel);
+                if (response.status === 'success') {
+                    agregado(mensaje);
                 }
 
                 if (response.status === 'error') {
@@ -177,7 +184,133 @@ $(document).ready(function () {
         })
     })
 })
-*/
+
+
+
+
+function setRealizado(id_servicio) {
+    Swal.fire({
+        icon: 'warning',
+        title: '¿Marcar como REALIZADO?',
+        text: 'Esto cambiara el estado del servicio a REALIZADO',
+        showCancelButton: true,
+        confirmButtonColor: "#28a745",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Marcar como realizado",
+        cancelButtonText: "No"
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            $.ajax({
+                url: '../../controllers/servicios/cambiarEstadoServicio.php',
+                type: 'POST',
+                data: { id: id_servicio, estado: "Realizado" },
+                dataType: 'json',
+                success: function (response) {
+
+                    const mensaje = response.message;
+                    const titulo = response.title;
+
+                    if (response.status === 'success') {
+                        ready(mensaje, titulo);
+                    }
+
+                    if (response.status === 'error') {
+                        error(mensaje);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    error_servidor(mensaje);
+                }
+            });
+        }
+    });
+}
+
+
+
+function setNoRealizado(id_servicio) {
+    Swal.fire({
+        icon: 'warning',
+        title: '¿Marcar como NO REALIZADO?',
+        text: 'Esto cambiara el estado del servicio a NO REALIZADO',
+        showCancelButton: true,
+        confirmButtonColor: "#28a745",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Marcar como no realizado",
+        cancelButtonText: "No"
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            $.ajax({
+                url: '../../controllers/servicios/cambiarEstadoServicio.php',
+                type: 'POST',
+                data: { id: id_servicio, estado: "No realizado" },
+                dataType: 'json',
+                success: function (response) {
+
+                    const mensaje = response.message;
+                    const titulo = response.title;
+
+                    if (response.status === 'success') {
+                        ready(mensaje, titulo);
+                    }
+
+                    if (response.status === 'error') {
+                        error(mensaje);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    error_servidor(mensaje);
+                }
+            });
+        }
+    });
+}
+
+
+
+function eliminarServicio(id_servicio) {
+    Swal.fire({
+        icon: 'warning',
+        title: '¿Eliminar servicio?',
+        text: 'No podras recuperar el servicio una vez eliminado',
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, eliminar",
+        cancelButtonText: "No"
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            $.ajax({
+                url: '../../controllers/servicios/eliminarServicio.php',
+                type: 'POST',
+                data: { id: id_servicio },
+                dataType: 'json',
+                success: function (response) {
+
+                    const mensaje = response.message;
+                    const titulo = response.title;
+
+                    if (response.status === 'success') {
+                        ready(mensaje, titulo);
+                    }
+
+                    if (response.status === 'error') {
+                        error(mensaje);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    error_servidor(mensaje);
+                }
+            });
+        }
+    });
+}
+
+
+
 
 function redirigirPorNivel(nivel) {
 
