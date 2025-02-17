@@ -1,0 +1,75 @@
+<?php
+
+
+require_once '../../model/Servicios.php';
+require_once '../../model/Usuario.php';
+require_once '../../helpers/validaciones.php';
+
+
+
+if (!validarDatosServicios($_POST, 'editar')) {
+
+    enviarRespuesta('error', 'No se han recibido todos los tados');
+    exit;
+}
+
+
+//print_r($_POST);
+
+$servicio = new Servicios();
+$usuario = new Usuario();
+
+$servicio->setId($_POST['id']);
+$servicio->setCliente($_POST['cliente']);
+$servicio->setTecnico($_POST['tecnico']);
+$servicio->setEstado($_POST['estado']);
+$servicio->setDescripcion($_POST['descripcion']);
+$servicio->setDireccion($_POST['direccion']);
+$servicio->setFecha($_POST['fecha']);
+
+
+if (!$servicio->existeServicioById()) {
+    enviarRespuesta('error', 'No existe este servicio');
+    exit;
+}
+
+
+if (!$usuario->existeTecnicoById($servicio->getTecnico())) {
+
+    if ($servicio->getTecnico() == "No asignado") {
+        $servicio->setTecnico(NULL);
+
+    } else {
+
+        enviarRespuesta('error', 'No existe este tecnico');
+        exit;
+    }
+
+}
+
+//Recordar hacer una verificacion para saber si el cliente y tecnico existen y tienen el nivle de usuario que se espera de ellos
+if (!$usuario->existeClienteById($servicio->getCliente())) {
+
+    enviarRespuesta('error', 'No existe este cliente');
+    exit;
+
+}
+
+
+
+
+if ($servicio->editar()) {
+
+    enviarRespuesta('success', 'Se modificó con exito');
+    exit;
+
+} else {
+
+    error_log("Error al modificar el servicio: " . json_encode($servicio));
+    enviarRespuesta('error', 'Error al modificar el servicio');
+    exit;
+}
+
+
+
+?>

@@ -63,11 +63,12 @@ class Usuario {
 
     public function editar() {
 
-        $query = "UPDATE usuarios SET nombre = :nombre, correo = :correo, telefono = :telefono, nivel = :nivel WHERE id_usuario = :id";
+        $query = "UPDATE usuarios SET nombre = :nombre, correo = :correo, codigo_telefono = :codigo, telefono = :telefono, nivel = :nivel WHERE id_usuario = :id";
 
         $stmt = $this->PDO->prepare($query);
         $stmt->bindParam(':nombre', $this->nombre);
         $stmt->bindParam(':correo', $this->correo);
+        $stmt->bindParam(':codigo', $this->codigo);
         $stmt->bindParam(':telefono', $this->telefono);
         $stmt->bindParam(':nivel', $this->nivel);
         $stmt->bindParam(':id', $this->id);
@@ -174,7 +175,7 @@ class Usuario {
 
     public function obtenerUsuarioById() {
 
-        $query = "SELECT id_usuario, nombre, correo, telefono, nivel FROM usuarios WHERE id_usuario = :id";
+        $query = "SELECT id_usuario, nombre, correo, telefono, nivel, codigo_telefono FROM usuarios WHERE id_usuario = :id";
 
         $stmt = $this->PDO->prepare($query);
         $stmt->bindParam(':id', $this->id);
@@ -195,4 +196,30 @@ class Usuario {
 
     }
 
+    public function existeClienteById($id) {
+
+        $query = "SELECT * FROM usuarios WHERE id_usuario = :id AND nivel = 'Cliente'";
+
+        $stmt = $this->PDO->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        return $stmt->rowCOunt() > 0 ? true : false;
+
+    }
+
+    public function existeTecnicoById($id) {
+
+        $query = "SELECT * FROM usuarios WHERE id_usuario = :id AND nivel = 'Tecnico'";
+
+        $stmt = $this->PDO->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        return $stmt->rowCOunt() > 0 ? true : false;
+
+    }
+
 }
+
+?>

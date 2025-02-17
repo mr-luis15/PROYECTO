@@ -78,13 +78,13 @@
 
                                         <td><?php echo $servicio['nombre_cliente']; ?></td>
 
-                                        <td><?php echo isNull($servicio['nombre_tecnico'], "<p style='color: red'>No Asignado</p>"); ?></td>
+                                        <td><?php echo isNull($servicio['nombre_tecnico'], "<b style='color: red'>No Asignado</b>"); ?></td>
 
                                         <td><?php echo $servicio['direccion']; ?></td>
 
                                         <td><?php echo $servicio['descripcion']; ?></td>
 
-                                        <td><?php echo $servicio['estado']; ?></td>
+                                        <td><?php echo mostrarServicioRealzizado($servicio['estado']); ?></td>
 
                                         <td><?php echo $servicio['fecha_servicio']; ?></td>
 

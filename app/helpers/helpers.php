@@ -3,9 +3,10 @@
 
 
 //Funcion para devolver "No asignado" en caso de que no haya un Tecnico asignado
-function isNull($dato, $mensaje) {
+function isNull($dato, $mensaje)
+{
 
-    if ($dato == "") {
+    if ($dato == NULL || $dato == "") {
         return $mensaje;
     }
 
@@ -14,163 +15,93 @@ function isNull($dato, $mensaje) {
 
 
 
+//Mostrar telefonos con guiones
+function mostrarTelefono($tel)
+{
 
-//Funcion para verificar si el telefono contiene caracteres validos (numeros)
-function esTelefonoValido($numeros_telefono) {
+    return preg_replace("/(\d{3})(\d{3})(\d{4})/", "$1-$2-$3", $tel);
+}
 
-    $numeros = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
-    $telefono = str_split($numeros_telefono);
 
-    foreach ($telefono as $num) {
+function mostrarServicioRealzizado($estado) {
 
-        if (!in_array($num, $numeros))
-            return false;
-
-    }
-
-    return true;
-
+    return $estado == "Realizado"? "<b style='color: green'>Realizado</b>" : "<b>No realizado</b>";
 
 }
 
 
-
-
 //Funcion para obtener los codigos telefonicos de los paises
-function obtenerCodigosPaises() {
+function obtenerCodigosPaises()
+{
+
 
     $codigos = array(
         "México" => "+52",
-        "Estados Unidos / Canadá" => "+1",
-        "Egipto" => "+20",
-        "Francia" => "+33",
-        "España" => "+34",
-        "Reino Unido" => "+44",
-        "Alemania" => "+49",
-        "Brasil" => "+55",
-        "Chile" => "+56",
-        "Colombia" => "+57",
-        "Venezuela" => "+58",
-        "Malasia" => "+60",
-        "Australia" => "+61",
-        "Indonesia" => "+62",
-        "Filipinas" => "+63",
-        "Nueva Zelanda" => "+64",
-        "Tailandia" => "+66",
-        "Japón" => "+81",
-        "Corea del Sur" => "+82",
-        "Vietnam" => "+84",
-        "India" => "+91",
-        "Pakistán" => "+92",
-        "Afganistán" => "+93",
-        "Sri Lanka" => "+94",
-        "Birmania (Myanmar)" => "+95",
-        "Irán" => "+98",
-        "Marruecos" => "+212",
-        "Argelia" => "+213",
-        "Túnez" => "+216",
-        "Libia" => "+218",
-        "Gambia" => "+220",
-        "Senegal" => "+221",
-        "Mauritania" => "+222",
-        "Malí" => "+223",
-        "Guinea" => "+224",
-        "Costa de Marfil" => "+225",
-        "Burkina Faso" => "+226",
-        "Níger" => "+227",
-        "Togo" => "+228",
-        "Benín" => "+229",
-        "Mauricio" => "+230",
-        "Liberia" => "+231",
-        "Sierra Leona" => "+232",
-        "Ghana" => "+233",
-        "Nigeria" => "+234",
-        "Chad" => "+235",
-        "República Centroafricana" => "+236",
-        "Camerún" => "+237",
-        "Cabo Verde" => "+238",
-        "San Tomé y Príncipe" => "+239",
-        "Guinea Ecuatorial" => "+240",
-        "Gabón" => "+241",
-        "Congo" => "+242",
-        "República Democrática del Congo" => "+243",
-        "Angola" => "+244",
-        "Guinea-Bisáu" => "+245",
-        "Islas Chagos" => "+246",
-        "Ascensión" => "+247",
-        "Seychelles" => "+248",
-        "Sudán" => "+249",
-        "Ruanda" => "+250",
-        "Etiopía" => "+251",
-        "Somalia" => "+252",
-        "Yibuti" => "+253",
-        "Kenia" => "+254",
-        "Tanzania" => "+255",
-        "Uganda" => "+256",
-        "Burundi" => "+257",
-        "Mozambique" => "+258",
-        "Comoras" => "+259",
-        "Zambia" => "+260",
-        "Madagascar" => "+261",
-        "Reunión" => "+262",
-        "Zimbabue" => "+263",
-        "Namibia" => "+264",
-        "Malaui" => "+265",
-        "Lesoto" => "+266",
-        "Botsuana" => "+267",
-        "Suazilandia" => "+268",
-        "Islas Comoras" => "+269",
-        "Santa Elena" => "+290",
-        "Eritrea" => "+291",
-        "Alderney" => "+292",
-        "Sark" => "+293",
-        "Islas Faroe" => "+294",
-        "Islas Malvinas" => "+295",
-        "Islas Georgias del Sur" => "+296",
-        "Aruba" => "+297",
-        "Islas Feroe" => "+298",
-        "Groenlandia" => "+299",
-        "Grecia" => "+30",
-        "Países Bajos" => "+31",
-        "Bélgica" => "+32",
-        "Hungría" => "+36",
-        "Italia" => "+39",
-        "Rumanía" => "+40",
-        "Suiza" => "+41",
-        "Checoslovaquia (hoy República Checa y Eslovaquia)" => "+42",
-        "Austria" => "+43",
-        "Dinamarca" => "+45",
-        "Suecia" => "+46",
-        "Noruega" => "+47",
-        "Polonia" => "+48",
-        "Islas Malvinas" => "+50",
-        "Perú" => "+51",
-        "México" => "+52",
-        "Cuba" => "+53",
+        "Estados Unidos" => "+1",
+        "Canadá" => "+1",
         "Argentina" => "+54",
         "Brasil" => "+55",
-        "Chile" => "+56",
         "Colombia" => "+57",
+        "Chile" => "+56",
+        "Perú" => "+51",
+        "Ecuador" => "+593",
+        "Guatemala" => "+502",
+        "Cuba" => "+53",
+        "Bolivia" => "+591",
+        "República Dominicana" => "+1",
+        "Honduras" => "+504",
+        "Paraguay" => "+595",
+        "El Salvador" => "+503",
+        "Nicaragua" => "+505",
+        "Costa Rica" => "+506",
+        "Panamá" => "+507",
+        "Uruguay" => "+598",
         "Venezuela" => "+58",
-        "Malasia" => "+60",
-        "Australia" => "+61",
-        "Indonesia" => "+62",
-        "Filipinas" => "+63",
-        "Nueva Zelanda" => "+64",
-        "Singapur" => "+65",
-        "Tailandia" => "+66",
-        "Japón" => "+81",
-        "Corea del Sur" => "+82",
-        "Vietnam" => "+84",
-        "China" => "+86",
-        "Turquía" => "+90",
-        "India" => "+91",
-        "Pakistán" => "+92",
-        "Afganistán" => "+93",
-        "Sri Lanka" => "+94",
-        "Birmania (Myanmar)" => "+95",
-        "Irán" => "+98"
+        "Belice" => "+501",
+        "Surinam" => "+597",
+        "Guyana" => "+592",
+        "Francia" => "+33", 
+        "España" => "+34",
+        "Reino Unido" => "+44",
+        "Italia" => "+39",
+        "Alemania" => "+49",
+        "Francia" => "+33",
+        "Portugal" => "+351",
+        "Rumanía" => "+40",
+        "Polonia" => "+48",
+        "Irlanda" => "+353",
+        "Bélgica" => "+32",
+        "Suiza" => "+41",
+        "Países Bajos" => "+31",
+        "Suecia" => "+46",
+        "Noruega" => "+47",
+        "Dinamarca" => "+45",
+        "Finlandia" => "+358",
+        "Hungría" => "+36",
+        "Lituania" => "+370",
+        "Letonia" => "+371",
+        "Estonia" => "+372",
+        "Luxemburgo" => "+352",
+        "Moldavia" => "+373",
+        "Eslovenia" => "+386",
+        "Croacia" => "+385",
+        "Serbia" => "+381",
+        "Bulgaria" => "+359",
+        "Grecia" => "+30",
+        "Chequia" => "+420",
+        "Eslovaquia" => "+421",
+        "Albania" => "+355",
+        "Armenia" => "+374",
+        "Azerbaiyán" => "+994",
+        "Kazajistán" => "+7",
+        "Georgia" => "+995",
+        "San Marino" => "+378",
+        "Mónaco" => "+377",
+        "Malta" => "+356",
+        "Liechtenstein" => "+423",
+        "Andorra" => "+376"
     );
+
 
     return $codigos;
 }

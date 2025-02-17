@@ -32,7 +32,7 @@ require_once '../../helpers/helpers.php';
                         <th>Id</th>
                         <th>Nombre</th>
                         <th>Correo</th>
-                        <th>Codigo telefono</th>
+                        <th>Codigo</th>
                         <th>Teléfono</th>
                         <th>Nivel</th>
                         <th>Acciones</th>
@@ -51,7 +51,7 @@ require_once '../../helpers/helpers.php';
                                 <td><?php echo $usuario['nombre']; ?></td>
                                 <td><?php echo $usuario['correo']; ?></td>
                                 <td><?php echo $usuario['codigo_telefono']; ?></td>
-                                <td><?php echo $usuario['telefono']; ?></td>
+                                <td><?php echo mostrarTelefono($usuario['telefono']); ?></td>
                                 <td><?php echo $usuario['nivel']; ?></td>
                                 <td>
                                     <a class="btn btn-danger" onclick="eliminarUsuario(<?php echo $usuario['id_usuario'] ?>)">

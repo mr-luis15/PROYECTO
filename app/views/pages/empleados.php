@@ -4,16 +4,22 @@ session_start();
 
 require_once '../../routes/RouteController.php';
 
+
+
 if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['nivel'] != 'Administrador') {
     Route::msg('Error');
     exit;
 }
+
+
 
 $title = "Empleados";
 require_once '../resources/layout/head.php';
 require_once '../resources/layout/menu.php';
 require_once '../../model/Usuario.php';
 require_once '../../helpers/helpers.php';
+
+
 
 ?>
 
@@ -39,7 +45,7 @@ require_once '../../helpers/helpers.php';
                         <th>Id</th>
                         <th>Nombre</th>
                         <th>Correo</th>
-                        <th>Codigo telefono</th>
+                        <th>Codigo</th>
                         <th>Teléfono</th>
                         <th>Nivel</th>
                         <th>Acciones</th>
@@ -58,7 +64,7 @@ require_once '../../helpers/helpers.php';
                                 <td><?php echo $usuario['nombre']; ?></td>
                                 <td><?php echo $usuario['correo']; ?></td>
                                 <td><?php echo $usuario['codigo_telefono']; ?></td>
-                                <td><?php echo $usuario['telefono']; ?></td>
+                                <td><?php echo mostrarTelefono($usuario['telefono']); ?></td>
                                 <td><?php echo $usuario['nivel']; ?></td>
                                 <td>
                                     <a class="btn btn-danger" onclick="eliminarUsuario(<?php echo $usuario['id_usuario'] ?>)">
