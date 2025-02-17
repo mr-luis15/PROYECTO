@@ -1,49 +1,68 @@
 <?php
 
+
+
 require_once '../../model/Usuario.php';
-require_once '../../routes/RouteController.php';
+require_once '../../helpers/validaciones.php';
 
-//print_r($_POST);
 
-if (
-    empty($_POST['nombre']) && empty($_POST['telefono']) &&
-    empty($_POST['correo']) && empty($_POST['password'])
-) {
-    echo "No se han recibido algunos datos";
+
+if (!validarDatosCliente($_POST)) {
+    enviarRespuesta('error', 'No se han recibido todos los datos');
     exit;
 }
 
+
 $usuario = new Usuario();
+
 $usuario->nombre = $_POST['nombre'];
 $usuario->correo = $_POST['correo'];
 $usuario->telefono = $_POST['telefono'];
 $usuario->nivel = 'Cliente';
 $usuario->password = $_POST['password'];
+$usuario->codigo = $_POST['codigo'];
+
 
 if (!filter_var($usuario->correo, FILTER_VALIDATE_EMAIL)) {
-    echo "El correo electronico no es valido";
+    enviarRespuesta('error', 'El correo electronico no es valido');
     exit;
 }
 
-if ($usuario->existeUsuario()) {
-    echo "Ya existe este usuario";
+
+if ($usuario->existeUsuarioByEmail()) {
+    enviarRespuesta('error', 'Este correo ya esta registrado');
     exit;
 }
 
-if (!strlen($usuario->telefono) != 10) {
-    echo "El telefono debe tener 10 digitos";
+
+if (strlen($usuario->telefono) != 10) {
+    enviarRespuesta('error', 'El telefono debe tener 10 digitos');
+    exit;
 }
+
+
+if (!esTelefonoValido($usuario->telefono)) {
+    enviarRespuesta('error', 'El telefono no es valido. Debe contener solo numeros');
+    exit;
+}
+
 
 if ($usuario->existeTelefono()) {
-    echo "Este telefono ya esta registrado";
+    enviarRespuesta('error', 'Este telefono ya esta registrado');
     exit;
 }
+
 
 $usuario->passwordHash = password_hash($usuario->password, PASSWORD_BCRYPT);
 
+
 if (!$usuario->crear()) {
-    echo "No se ha creado";
+    enviarRespuesta('error', 'Ha habido un error al crear el usuario');
     exit;
 }
 
-Route::view('login');
+
+enviarRespuesta('success', 'Te has registrado con exito');
+
+
+?>
