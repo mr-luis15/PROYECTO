@@ -104,4 +104,19 @@ function validarDatosUsuario($data, $accion)
         }
     }
     return true;
+
+    
+}
+
+
+function validarDatosCliente($data) {
+
+    $camposRequeridos = ['nombre', 'correo', 'telefono', 'password', 'codigo'];
+    foreach ($camposRequeridos as $campo) {
+        if (empty($data[$campo])) {
+            return false;
+        }
+    }
+
+    return true;
 }

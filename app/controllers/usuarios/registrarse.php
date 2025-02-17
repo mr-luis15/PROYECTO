@@ -3,16 +3,12 @@
 
 
 require_once '../../model/Usuario.php';
-require_once '../../helpers/helpers.php';
+require_once '../../helpers/validaciones.php';
 
 
 
-if (
-    empty($_POST['nombre']) || empty($_POST['telefono']) ||
-    empty($_POST['correo']) || empty($_POST['password']) ||
-    empty($_POST['codigo'])
-) {
-    echo json_encode(['status' => 'error', 'message' => 'No se han recibido los datos']);
+if (!validarDatosCliente($_POST)) {
+    enviarRespuesta('error', 'No se han recibido todos los datos');
     exit;
 }
 
@@ -28,31 +24,31 @@ $usuario->codigo = $_POST['codigo'];
 
 
 if (!filter_var($usuario->correo, FILTER_VALIDATE_EMAIL)) {
-    echo json_encode(['status' => 'error', 'message' => 'El correo electronico no es valido']);
+    enviarRespuesta('error', 'El correo electronico no es valido');
     exit;
 }
 
 
 if ($usuario->existeUsuarioByEmail()) {
-    echo json_encode(['status' => 'error', 'message' => 'Este correo electronico ya está en uso']);
+    enviarRespuesta('error', 'Este correo ya esta registrado');
     exit;
 }
 
 
 if (strlen($usuario->telefono) != 10) {
-    echo json_encode(['status' => 'error', 'message' => 'El telefono debe tener 10 digitos']);
+    enviarRespuesta('error', 'El telefono debe tener 10 digitos');
     exit;
 }
 
 
 if (!esTelefonoValido($usuario->telefono)) {
-    echo json_encode(['status' => 'error', 'message' => 'Ests telefono no es valido. Debe contener solo numeros']);
+    enviarRespuesta('error', 'El telefono no es valido. Debe contener solo numeros');
     exit;
 }
 
 
 if ($usuario->existeTelefono()) {
-    echo json_encode(['status' => 'error', 'message' => 'Este telefono ya esta en uso']);
+    enviarRespuesta('error', 'Este telefono ya esta registrado');
     exit;
 }
 
@@ -61,12 +57,12 @@ $usuario->passwordHash = password_hash($usuario->password, PASSWORD_BCRYPT);
 
 
 if (!$usuario->crear()) {
-    echo json_encode(['status' => 'error', 'message' => 'Ha habido un erro al momento de crear el usuario']);
+    enviarRespuesta('error', 'Ha habido un error al crear el usuario');
     exit;
 }
 
 
-echo json_encode(['status' => 'success', 'message' => 'Te has registrado con exito']);
+enviarRespuesta('success', 'Te has registrado con exito');
 
 
 ?>

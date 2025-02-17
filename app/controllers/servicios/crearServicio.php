@@ -27,10 +27,9 @@ $servicio->setEstado("No realizado");
 
 
 if (!$usuario->existeClienteById($servicio->getCliente()) || !$usuario->existeTecnicoById($servicio->getTecnico())) {
-
+    
     enviarRespuesta('error', 'No existe este cliente o tecnico');
     exit;
-
 }
 
 
@@ -43,9 +42,6 @@ if (strlen($servicio->getDescripcion()) > 255) {
 if ($servicio->crear()) {
     enviarRespuesta('success', 'Se ha agregado un nuevo servicio');
     exit;
-} 
+}
 
 enviarRespuesta('error', 'No se ha agregado el servicio');
-
-
-?>

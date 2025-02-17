@@ -2,22 +2,15 @@
 
 session_start();
 
-
-require_once '../../model/Usuario.php';
-require_once '../../routes/RouteController.php';
-require_once '../../helpers/validaciones.php';
-
-
-
-if (
-    !isset($_SESSION['usuario']) ||
-
-    $_SESSION['usuario']['nivel'] != 'Administrador'
-) {
+if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['nivel'] != 'Administrador') {
 
     enviarRespuesta('error', 'No tienes permiso para realizar esta accion');
     exit;
 }
+
+
+require_once '../../model/Usuario.php';
+require_once '../../helpers/validaciones.php';
 
 
 
@@ -37,6 +30,7 @@ $usuario->correo = $_POST['correo'];
 $usuario->codigo = $_POST['codigo'];
 $usuario->telefono = $_POST['telefono'];
 $usuario->nivel = $_POST['nivel'];
+
 
 
 if (!filter_var($usuario->correo, FILTER_VALIDATE_EMAIL)) {

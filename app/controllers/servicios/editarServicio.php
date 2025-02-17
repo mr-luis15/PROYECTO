@@ -14,9 +14,21 @@ if (!validarDatosServicios($_POST, 'editar')) {
 }
 
 
+/**
+ * 
+ * 
+ * Nota: no comentar o dejar este print_r($_POST) en el codigo genera un problema al momento 
+ * de devolver la respuesta json al frontend aparentemente porque devuelve los datos del array 
+ * POST
+ * 
+ * 
+ * */
+
+ 
 //print_r($_POST);
 
 $servicio = new Servicios();
+
 $usuario = new Usuario();
 
 $servicio->setId($_POST['id']);
@@ -54,8 +66,6 @@ if (!$usuario->existeClienteById($servicio->getCliente())) {
     exit;
 
 }
-
-
 
 
 if ($servicio->editar()) {

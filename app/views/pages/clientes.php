@@ -42,12 +42,15 @@ require_once '../../helpers/helpers.php';
                 </thead>
                 <tbody>
                     <?php
+                    
                     $usuarios = new Usuario();
                     $listado = $usuarios->obtenerClientes();
 
                     if ($listado) {
                         foreach ($listado as $usuario) {
+
                             ?>
+
                             <tr>
                                 <td><?php echo $usuario['id_usuario']; ?></td>
                                 <td><?php echo $usuario['nombre']; ?></td>
@@ -65,11 +68,16 @@ require_once '../../helpers/helpers.php';
                                     </a>
                                 </td>
                             </tr>
+
                             <?php
+
                         }
+                        
                     } else {
+
                         echo "<tr><td colspan='6' class='text-center'>No hay datos disponibles</td></tr>";
                     }
+
                     ?>
                 </tbody>
             </table>

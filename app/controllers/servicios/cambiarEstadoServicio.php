@@ -1,11 +1,12 @@
 <?php
 
 require_once '../../model/Servicios.php';
+require_once '../../helpers/validaciones.php';
 
 
 if (empty($_POST['id'])) {
     
-    echo json_encode(['status' => 'error', 'message' => 'No se ha recibido el id del servicio']);
+    enviarRespuesta('error', 'No se ha recibido el ID del servicio');
     exit;
 }
 
@@ -26,7 +27,7 @@ if ($estado == "Realizado") {
         exit;
     }
     
-    echo json_encode(['status' => 'error', 'message' => 'No se ha marcado. Hubo un error']);
+    enviarRespuesta('error', 'No ha cambiado el estado del servicio. Hubo un error');
     exit;
     
 }
@@ -39,7 +40,7 @@ if ($estado == "No realizado") {
         exit;
     }
     
-    echo json_encode(['status' => 'error', 'message' => 'No se ha marcado. Hubo un error']);
+    enviarRespuesta('error', 'No ha cambiado el estado del servicio. Hubo un error');
     exit;
     
 }

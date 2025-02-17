@@ -1,10 +1,11 @@
 <?php
 
 require_once '../../model/Servicios.php';
+require_once '../../helpers/validaciones.php';
 
 
 if (empty($_POST['id'])) {
-    echo json_encode(['status' => 'error', 'message' => 'No se ha recibido el id del servicio']);
+    enviarRespuesta('error', 'No se ha recibido el ID del servicio');
     exit;
 }
 
@@ -16,7 +17,7 @@ if ($servicio->eliminar()) {
     echo json_encode(['status' => 'success', 'title' => 'ELiminado', 'message' => 'Se ha eliminado el servicio']);
     exit;
 } else {
-    echo json_encode(['status' => 'error', 'message' => 'No se ha eliminado. Hubo un error']);
+    enviarRespuesta('error', 'No se ha eliminado. Hubo un error');
     exit;
 }
 

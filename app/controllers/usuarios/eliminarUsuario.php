@@ -2,8 +2,6 @@
 
 session_start();
 
-require_once '../../model/Usuario.php';
-
 
 if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['nivel'] != 'Administrador') {
 
@@ -12,9 +10,12 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['nivel'] != 'Administra
 }
 
 
+require_once '../../model/Usuario.php';
+require_once '../../helpers/validaciones.php';
+
 if (empty($_POST['id'])) {
 
-    echo json_encode(['status' => 'error', 'message' => 'No se ha recibido el ID del usuario']);
+    enviarRespuesta('error', 'No se ha recibido el ID del usuario');
     exit;
 }
 
@@ -25,22 +26,25 @@ $usuario->setId($_POST['id']);
 
 if ($_SESSION['usuario']['id'] == $usuario->getId()) {
 
-    echo json_encode(['status' => 'error', 'message' => 'No puedes eliminar tu propia cuenta']);
+    enviarRespuesta('error', 'No puedes eliminar tu propia cuenta');
     exit;
 }
 
 
 if (!$usuario->existeUsuarioById()) {
 
-    echo json_encode(['status' => 'error', 'message' => 'El usuario no existe']);
+    enviarRespuesta('error', 'Este usuario no existe');
     exit;
 }
 
 
 if ($usuario->eliminar()) {
 
-    echo json_encode(['status' => 'success', 'message' => 'Usuario eliminado correctamente']);
+    enviarRespuesta('success', 'Usuario eliminado correctamente');
+    exit;
+
 } else {
 
-    echo json_encode(['status' => 'error', 'message' => 'No se pudo eliminar el usuario']);
+    enviarRespuesta('error', 'Hubo un error. No se eliminó el usuario');
+    exit;
 }
